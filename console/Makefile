@@ -1,4 +1,4 @@
-TARGET = ../pr05
+TARGET = ../simplecomputer
 
 CC = gcc
 CFLAGS = -Wall -std=c11 -I../include
@@ -17,6 +17,6 @@ $(TARGET): $(OBJ) $(LIBS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm $(TARGET) *.o
+	rm -f $(TARGET) *.o
 
 .PHONY: all clean
