@@ -1,4 +1,4 @@
-TARGET = ../simplecomputer
+TARGET = ../pr06
 
 CC = gcc
 CFLAGS = -Wall -std=c11 -I../include

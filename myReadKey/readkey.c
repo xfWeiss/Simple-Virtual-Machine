@@ -4,8 +4,8 @@
 #include <termios.h>
 #include <unistd.h>
 
-#include "../include/myReadKey.h"
-#include "../include/myTerm.h"
+#include "myReadKey.h"
+#include "myTerm.h"
 
 int
 rk_mytermregime (int regime, int vtime, int vmin, int echo, int sigint)

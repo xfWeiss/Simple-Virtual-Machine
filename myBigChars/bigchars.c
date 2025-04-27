@@ -1,7 +1,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "../include/myBigChars.h"
+#include "myBigChars.h"
 
 int
 bc_strlen (char *str)

@@ -2,8 +2,8 @@
 #define MY_SIMPLE_COMPUTER_H
 
 #define MEMORY_SIZE 128
-#define MIN_VALUE -65535
-#define MAX_VALUE 65535
+#define MIN_VALUE -16383
+#define MAX_VALUE 16383 // (2^14) - 1
 
 #define FLAG_OVERFLOW 1
 #define FLAG_DIV_BY_ZERO 2
@@ -15,7 +15,7 @@
 #define BIT_DEL(X, Y) X = X & (~(1 << (Y - 1))) // Устанавливает ноль
 #define BIT_GET(X, Y) X >> (Y - 1) & 0x1 // Возвращает нужный бит
 
-// Функции для работы с памятью
+// Функции для работы с оперативной памятью
 int sc_memoryInit (void);
 int sc_memorySet (int address, int value);
 int sc_memoryGet (int address, int *value);

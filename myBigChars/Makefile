@@ -3,7 +3,7 @@ LIBRARY = libmybigch.a
 SRC = $(wildcard *.c)
 OBJ = $(patsubst %.c, %.o, $(SRC))
 
-CFLAGS = -Wall -std=c11 -fPIC
+CFLAGS = -Wall -std=c11 -I../include -fPIC
 
 all: $(LIBRARY)
 
@@ -14,6 +14,6 @@ $(LIBRARY): $(OBJ)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm $(OBJ) $(LIBRARY)
+	rm -f $(OBJ) $(LIBRARY)
 
 .PHONY: all clean

@@ -3,7 +3,7 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 
-#include "../include/myTerm.h"
+#include "myTerm.h"
 
 int
 mt_clrscr (void)

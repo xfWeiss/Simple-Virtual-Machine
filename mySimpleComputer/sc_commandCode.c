@@ -1,4 +1,4 @@
-#include "../include/mySimpleComputer.h"
+#include "mySimpleComputer.h"
 
 typedef enum
 {
@@ -47,7 +47,7 @@ typedef enum
 int
 sc_commandValidate (int command)
 {
-  // Массив допустимых кодов команд
+  // Массив допустимых кодов команд в порядке возрастания
   int validCommands[] = { NOP,  CPUINFO, READ,  WRITE, LOAD, STORE, ADD,
                           SUB,  DIVIDE,  MUL,   JUMP,  JNEG, JZ,    HALT,
                           NOT,  AND,     OR,    XOR,   JNS,  JC,    JNC,
@@ -62,22 +62,22 @@ sc_commandValidate (int command)
           return 0; // Код команды валиден
         }
     }
-  return -1;
+  return -1; // Несуществующий код команды
 }
 
 int
 sc_commandEncode (int sign, int command, int operand, int *value)
 {
-  if (sign < 0 || sign > 1 || sc_commandValidate (command) == -1 || operand < 0
-      || operand > 127)
+  if (sign >= 0 && sign <= 1 && sc_commandValidate (command) == 0
+      && operand >= 0 && operand < MEMORY_SIZE)
     {
-      return -1;
+      int code = operand;
+      code += (command << 7);
+      code = code & (~(1 << 14));
+      *value = code;
+      return 0;
     }
-  int code = operand;
-  code += (command << 7);
-  code = code & (~(1 << 14));
-  *value = code;
-  return 0;
+  return -1;
 }
 
 int

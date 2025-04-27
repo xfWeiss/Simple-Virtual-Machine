@@ -1,7 +1,7 @@
 #ifndef MY_BIG_CHARS_H
 #define MY_BIG_CHARS_H
 
-#include "../include/myTerm.h"
+#include "myTerm.h"
 
 #define BOXCH_REC "a"
 #define BOXCH_BR "j"

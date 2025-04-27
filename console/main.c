@@ -2,10 +2,10 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "../include/myBigChars.h"
-#include "../include/myReadKey.h"
-#include "../include/mySimpleComputer.h"
-#include "../include/myTerm.h"
+#include "myBigChars.h"
+#include "myReadKey.h"
+#include "mySimpleComputer.h"
+#include "myTerm.h"
 
 void printCell (int address, colors fg, colors bg);
 void printBigCell (int address, int bigchars[18][2]);
@@ -268,24 +268,23 @@ printDecodedCommand (int value)
   int len;
   if (value >= 0)
     {
-      len = sprintf (buf, "dec: %.5d | oct: %.6o | hex: %.4X  bin: ", value,
+      len = sprintf (buf, "dec: +%.5d | oct: +%.5o | hex: +%.4X  bin: ", value,
                      value, value);
-      for (int i = 15; i >= 0; i--)
+      for (int i = 13; i >= 0; i--)
         {
           buf[len++] = ((value >> i) & 1) ? '1' : '0';
         }
     }
   else
     {
-      len = sprintf (buf, "dec: %.5d | oct: %.6o | hex: %.4X  bin: ", -(value),
-                     -(value), -(value));
-      for (int i = 15; i >= 0; i--)
+      len = sprintf (buf,
+                     "dec: -%.5d | oct: -%.5o | hex: -%.4X  bin: ", -value,
+                     -value, -value);
+      for (int i = 13; i >= 0; i--)
         {
-          buf[len++] = ((-(value) >> i) & 1) ? '1' : '0';
+          buf[len++] = ((-value >> i) & 1) ? '1' : '0';
         }
-      buf[len - 16] = '1';
     }
-
   buf[len] = '\0';
   mt_gotoXY (2, 17);
   write (STDOUT_FILENO, buf, len);
@@ -295,10 +294,10 @@ void
 printAccumulator (void)
 {
   int value;
-  char buf[30];
   sc_accumulatorGet (&value);
-  int len = (value >= 0) ? sprintf (buf, "sc: +0000 hex: +%.4x", value)
-                         : sprintf (buf, "sc: +0000 hex: -%.4x", -(value));
+  char buf[30];
+  int len = (value >= 0) ? sprintf (buf, "sc: %.4x hex: +%.4x", value, value)
+                         : sprintf (buf, "sc: %.4x hex: -%.4x", -value, -value);
   mt_gotoXY (63, 2);
   write (STDOUT_FILENO, buf, len);
 }
@@ -307,9 +306,9 @@ void
 printCounters (void)
 {
   int value;
-  char buf[20];
   sc_icounterGet (&value);
-  int len = sprintf (buf, "T: 00     IC: +%.4x", value);
+  char buf[20];
+  int len = sprintf (buf, "T: 00     IC: %.4x", value);
   mt_gotoXY (64, 5);
   write (STDOUT_FILENO, buf, len);
 }
@@ -542,9 +541,9 @@ void
 accumulatorInput (void)
 {
   int value;
-  mt_gotoXY (78, 2);
+  mt_gotoXY (77, 2);
   write (STDOUT_FILENO, "     ", 5);
-  mt_gotoXY (78, 2);
+  mt_gotoXY (77, 2);
   rk_readvalue (&value, 0);
   sc_accumulatorSet (value);
 }

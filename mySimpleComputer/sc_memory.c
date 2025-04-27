@@ -1,15 +1,20 @@
 #include <stdio.h>
 
-#include "../include/mySimpleComputer.h"
+#include "mySimpleComputer.h"
 
 static int sc_memory[MEMORY_SIZE];
 
+// Использует оптимизацию методом раскрутки цикла
+// Глубина раскрутки равна 4
 int
 sc_memoryInit (void)
 {
-  for (int i = 0; i < MEMORY_SIZE; i++)
+  for (int i = 0; i + 3 < MEMORY_SIZE; i += 4)
     {
       sc_memory[i] = 0;
+      sc_memory[i + 1] = 0;
+      sc_memory[i + 2] = 0;
+      sc_memory[i + 3] = 0;
     }
   return 0;
 }
@@ -40,33 +45,33 @@ sc_memoryGet (int address, int *value)
 int
 sc_memorySave (char *filename)
 {
-  if (filename == NULL)
+  if (filename != NULL)
     {
+      FILE *fp = fopen (filename, "wb");
+      if (fp != NULL)
+        {
+          fwrite (sc_memory, sizeof (int), MEMORY_SIZE, fp);
+          fclose (fp);
+          return 0;
+        }
       return -1;
     }
-  FILE *fp = fopen (filename, "wb");
-  if (fp == NULL)
-    {
-      return -1;
-    }
-  fwrite (sc_memory, sizeof (int), MEMORY_SIZE, fp);
-  fclose (fp);
-  return 0;
+  return -1;
 }
 
 int
 sc_memoryLoad (char *filename)
 {
-  if (filename == NULL)
+  if (filename != NULL)
     {
+      FILE *fp = fopen (filename, "rb");
+      if (fp != NULL)
+        {
+          fread (sc_memory, sizeof (int), MEMORY_SIZE, fp);
+          fclose (fp);
+          return 0;
+        }
       return -1;
     }
-  FILE *fp = fopen (filename, "rb");
-  if (fp == NULL)
-    {
-      return -1;
-    }
-  fread (sc_memory, sizeof (int), MEMORY_SIZE, fp);
-  fclose (fp);
-  return 0;
+  return -1;
 }

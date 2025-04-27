@@ -1,4 +1,4 @@
-#include "../include/mySimpleComputer.h"
+#include "mySimpleComputer.h"
 
 static int sc_reg;
 static int sc_accumulator;
@@ -84,7 +84,7 @@ sc_icounterInit (void)
 int
 sc_icounterSet (int value)
 {
-  if (value >= 0 && value <= MAX_VALUE)
+  if (value >= 0 && value <= MEMORY_SIZE)
     {
       sc_instructionCounter = value;
       return 0;
