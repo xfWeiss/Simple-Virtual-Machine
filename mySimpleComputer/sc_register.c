@@ -18,22 +18,11 @@ sc_regSet (int reg, int value)
     {
       if (value)
         {
-          if (value == 1)
-            {
-              BIT_SET (sc_reg, reg);
-              return 0;
-            }
-          else
-            {
-              BIT_SET (sc_reg, FLAG_OVERFLOW);
-              return -1;
-            }
-        }
-      else
-        {
-          BIT_DEL (sc_reg, reg);
+          BIT_SET (sc_reg, reg);
           return 0;
         }
+      BIT_DEL (sc_reg, reg);
+      return 0;
     }
   return -1;
 }

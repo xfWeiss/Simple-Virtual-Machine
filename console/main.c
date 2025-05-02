@@ -62,7 +62,7 @@ main (int argc, char const *argv[])
     }
   else
     {
-      fp = fopen ("console/fonts/font.bin", "rb");
+      fp = fopen ("console/fonts/font.bin", "rb"); // Шрифт по умолчанию
     }
   if (fp == NULL)
     {
@@ -87,8 +87,6 @@ main (int argc, char const *argv[])
     {
       printCell (i, defclr, defclr);
     }
-  printFlags ();
-  printCommand ();
 
   int value;
   int curCell = 0, prevCell = -1;
@@ -104,7 +102,9 @@ main (int argc, char const *argv[])
       sc_memoryGet (curCell, &value);
       printDecodedCommand (value);
       printAccumulator ();
+      printFlags ();
       printCounters ();
+      printCommand ();
       prevCell = curCell;
 
       rk_readkey (&key);
@@ -249,13 +249,12 @@ printFlags (void)
         {
           if (value == 0)
             {
-              write (STDOUT_FILENO, "_ ", sizeof ("_ "));
+              write (STDOUT_FILENO, "_ ", 2);
             }
           else
             {
-              char tmp = str[i];
-              write (STDOUT_FILENO, &tmp, sizeof (str[i]));
-              write (STDOUT_FILENO, " ", sizeof (" "));
+              write (STDOUT_FILENO, &str[i], 1);
+              write (STDOUT_FILENO, " ", 1);
             }
         }
     }
@@ -296,8 +295,9 @@ printAccumulator (void)
   int value;
   sc_accumulatorGet (&value);
   char buf[30];
-  int len = (value >= 0) ? sprintf (buf, "sc: %.4x hex: +%.4x", value, value)
-                         : sprintf (buf, "sc: %.4x hex: -%.4x", -value, -value);
+  int len = (value >= 0)
+                ? sprintf (buf, "sc: %.4x hex: +%.4x", value, value)
+                : sprintf (buf, "sc: %.4x hex: -%.4x", -value, -value);
   mt_gotoXY (63, 2);
   write (STDOUT_FILENO, buf, len);
 }

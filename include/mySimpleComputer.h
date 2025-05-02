@@ -24,8 +24,8 @@ int sc_memoryLoad (char *filename);
 
 // Функции для работы с регистрами
 int sc_regInit (void);
-int sc_regSet (int register, int value);
-int sc_regGet (int register, int *value);
+int sc_regSet (int reg, int value);
+int sc_regGet (int reg, int *value);
 int sc_accumulatorInit (void);
 int sc_accumulatorSet (int value);
 int sc_accumulatorGet (int *value);

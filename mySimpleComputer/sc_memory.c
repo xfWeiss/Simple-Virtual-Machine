@@ -4,17 +4,12 @@
 
 static int sc_memory[MEMORY_SIZE];
 
-// Использует оптимизацию методом раскрутки цикла
-// Глубина раскрутки равна 4
 int
 sc_memoryInit (void)
 {
-  for (int i = 0; i + 3 < MEMORY_SIZE; i += 4)
+  for (int i = 0; i < MEMORY_SIZE; i++)
     {
       sc_memory[i] = 0;
-      sc_memory[i + 1] = 0;
-      sc_memory[i + 2] = 0;
-      sc_memory[i + 3] = 0;
     }
   return 0;
 }

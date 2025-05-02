@@ -1,7 +1,7 @@
 TARGET = ../pr06
 
 CC = gcc
-CFLAGS = -Wall -std=c11 -I../include
+CFLAGS = -Wall -Wno-unused-result -O2 -std=c11 -I../include
 
 SRC = $(wildcard *.c)
 OBJ = $(patsubst %.c, %.o, $(SRC))

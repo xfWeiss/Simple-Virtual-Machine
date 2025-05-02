@@ -3,7 +3,7 @@ LIBRARY = libmyreadkey.a
 SRC = $(wildcard *.c)
 OBJ = $(patsubst %.c, %.o, $(SRC))
 
-CFLAGS = -std=c11 -I../include -fPIC
+CFLAGS = -Wall -Wno-unused-result -O2 -std=c11 -I../include -fPIC
 
 all: $(LIBRARY)
 
